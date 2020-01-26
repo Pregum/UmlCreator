@@ -12,6 +12,12 @@ namespace UmlCreator.Core.Diagram
 
         public AccessLevel Accessibility { get; }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="accessibility"></param>
         public MethodNode(string name, string type, AccessLevel accessibility)
         {
             Name = name;

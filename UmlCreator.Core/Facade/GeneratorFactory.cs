@@ -6,8 +6,16 @@ using UmlCreator.Core.Builder;
 
 namespace UmlCreator.Core.Facade
 {
+    /// <summary>
+    /// クラス図を作成する為に使用するFactoryクラスです。
+    /// </summary>
     public static class GeneratorFactory
     {
+        /// <summary>
+        /// クラス図を作成する為に必要なインスタンスを生成します。
+        /// </summary>
+        /// <typeparam name="T"> 出力する </typeparam>
+        /// <returns></returns>
         public static ClassDiagramGenerator<T> Create<T>()
         {
             if (typeof(T) == typeof(string))

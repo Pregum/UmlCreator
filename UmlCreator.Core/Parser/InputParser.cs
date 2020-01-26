@@ -12,6 +12,7 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// クラスを表すパーサです。
         /// </summary>
+        /// <example> "class Hoge { }</example>
         private readonly static Parser<IRootNode> classDiagram =
             from @class in Parse.String("class").Token().Text()
             from className in Parse.LetterOrDigit.AtLeastOnce().Token().Text()
@@ -23,6 +24,7 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// フィールドメンバを表すパーサです。
         /// </summary>
+        /// <example> "+ name:string" </example>
         private readonly static Parser<INode> dataNode =
         from modifier in (Parse.Char('-').Return(AccessLevel.Private)
             .Or(Parse.Char('~').Return(AccessLevel.Package))
@@ -37,6 +39,7 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// メソッドを表すパーサです。
         /// </summary>
+        /// <example> "# GetName():string"</example>
         private readonly static Parser<INode> behaviorNode =
         from modifier in (Parse.Char('-').Return(AccessLevel.Private)
             .Or(Parse.Char('~').Return(AccessLevel.Package))
@@ -57,6 +60,12 @@ namespace UmlCreator.Core.Parser
         {
         }
 
+        /// <summary>
+        /// 入力された文字列をクラス図オブジェクトにパースします。
+        /// </summary>
+        /// <param name="input"> DSLで書かれた文字列 </param>
+        /// <exception cref="ArgumentException"> 文字列がクラス図オブジェクトにパースできなかった場合、発生します。</exception>
+        /// <returns>クラス図オブジェクト </returns>
         public IRootNode ParseDiagram(string input)
         {
             try
