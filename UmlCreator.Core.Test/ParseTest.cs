@@ -34,6 +34,19 @@ _test7:float
             _classDiagramGenerator = GeneratorFactory.Create<string>();
         }
 
+        [Theory(DisplayName ="空クラステスト")]
+        [InlineData("class Empty{}")]
+        public void EmptyClassTest(string testData)
+        {
+            // Arrange
+
+            // Act
+            _classDiagramGenerator.GenerateClassDiagram(testData);
+
+            // Assert
+            Assert.Equal("Empty", _classDiagramGenerator.InputDiagram.Name);
+        }
+
         [Fact(DisplayName = "クラス名取得テスト")]
         public void ClassNameTest1()
         {
