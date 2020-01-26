@@ -24,6 +24,13 @@ namespace UmlCreator.Core.Diagram
 
         public AccessLevel Accessibility { get; }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="accessibility"></param>
+        /// <param name="nodes"></param>
         public ClassNode(string name, string type, AccessLevel accessibility, IEnumerable<INode> nodes)
         {
 

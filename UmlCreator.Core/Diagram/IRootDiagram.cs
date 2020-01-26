@@ -10,17 +10,20 @@ namespace UmlCreator.Core.Diagram
     public interface IRootNode : INode
     {
         /// <summary>
-        /// データ(フィールド・プロパティ)のノード
+        /// 属性(フィールド・プロパティ)のノード
         /// </summary>
         IReadOnlyList<INode> DataNodes { get; }
+
         /// <summary>
         /// DataNodesの要素の有無
         /// </summary>
         bool HasDataNodes { get; }
+
         /// <summary>
-        /// 振る舞い(メソッド)のノード
+        /// 操作(メソッド)のノード
         /// </summary>
         IReadOnlyList<INode> BehaviorNodes { get; }
+
         /// <summary>
         /// BehaviorNodesの要素の有無
         /// </summary>

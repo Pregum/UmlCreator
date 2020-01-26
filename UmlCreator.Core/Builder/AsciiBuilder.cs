@@ -13,6 +13,11 @@ namespace UmlCreator.Core.Builder
         private string _oneSpace = " ";
         private string _oneHyphen = "-";
 
+        /// <summary>
+        /// 文字列でクラス図を作成します
+        /// </summary>
+        /// <param name="rootNode"> 根本のノードです。 </param>
+        /// <returns></returns>
         public string MakeDiagram(IRootNode rootNode)
         {
             if (rootNode == null) throw new ArgumentNullException($"{nameof(rootNode)} is null.");
@@ -32,13 +37,6 @@ namespace UmlCreator.Core.Builder
             return sb.ToString();
         }
 
-        /// <summary>
-        /// 文字列の最大文字数を取得する
-        /// </summary>
-        /// <param name="nodes">ノード</param>
-        /// <returns></returns>
-        //private int GetMaxLengthOfString(IReadOnlyList<INode> nodes)
-        //    => nodes.Max(node => node.FullName.Length);
         private int GetMaxLengthOfString(IRootNode rootNode)
         {
             var classFullNameLength = rootNode.FullName.Length;
@@ -46,9 +44,6 @@ namespace UmlCreator.Core.Builder
             var behaviorNodeFullNameLength = rootNode.HasBehaviorNodes ? rootNode.BehaviorNodes.Max(x => x.FullName.Length) : 0;
             return new[] { classFullNameLength, dataNodeFullNameLength, behaviorNodeFullNameLength }.Max();
         }
-
-        // "| + fff : double   |
-        // "| + hello : double |
 
         private string MakeHeader(string className) => AppendSideLine(DecorateSide(className, _oneSpace));
 

@@ -22,15 +22,15 @@ namespace UmlCreator.Core.Diagram
         /// </summary>
         Package,
         /// <summary>
-        /// 自クラスと同アセンブリ内の派生クラスのみアクセス可能
+        /// 自クラスと同アセンブリ内の派生クラスのみアクセス可能(未使用)
         /// </summary>
         PrivateProtected,
         /// <summary>
-        /// 同アセンブリまたは派生クラスのみアクセス可能
+        /// 同アセンブリまたは派生クラスのみアクセス可能(未使用)
         /// </summary>
         ProtectedInternal,
         /// <summary>
-        /// 同アセンブリのみアクセス可能
+        /// 同アセンブリのみアクセス可能(未使用)
         /// </summary>
         Internal,
         /// <summary>
