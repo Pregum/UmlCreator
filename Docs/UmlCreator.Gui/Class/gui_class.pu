@@ -1,0 +1,48 @@
+@startuml gui class diagram
+
+package UmlCreator.Gui <<Frame>>
+{
+  class ClassUmlView
+  {
+  }
+
+  class ClassUmlViewModel
+  {
+  }
+
+  class ClassUmlModel
+  {
+  }
+
+  enum OutputType
+  {
+    Image,
+    Ascii
+  }
+}
+
+package UmlCreator.Core <<Frame>>
+{
+  class ClassDiagramGenerator<T>
+  {
+  }
+
+  class GeneratorFactory
+  {
+    + {static} Create<T>(): ClassDiagramGenerator<T>
+  }
+}
+
+
+ClassUmlView -> ClassUmlViewModel
+ClassUmlViewModel -> ClassUmlModel
+
+ClassUmlModel --> ClassDiagramGenerator
+ClassUmlModel --> OutputType
+ClassUmlModel --> GeneratorFactory
+
+GeneratorFactory -> ClassDiagramGenerator
+
+note top of ClassUmlModel: "T型で出力される結果を受け入れる必要がある"
+
+@enduml

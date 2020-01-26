@@ -1,0 +1,35 @@
+@startuml builder_class_diagram
+
+title Builder名前空間のクラス図
+
+package Builder <<Frame>>
+{
+  interface IBuilder<T>
+  {
+    + MakeDiagram(IRootNode rootNode): T
+  }
+
+  class AsciiBuilder
+  {
+    + MakeDiagram(IRootNode rootNode): string
+  }
+
+  class ImageBuilder
+  {
+    + MakeDiagram(IRootNode rootNode): BitmapImage
+  }
+}
+
+package Diagram <<Frame>>
+{
+  interface IRootNode
+  {
+  }
+}
+
+AsciiBuilder .u.|> IBuilder
+ImageBuilder .u.|> IBuilder
+
+IBuilder --> IRootNode
+
+@enduml

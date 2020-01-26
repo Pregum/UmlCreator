@@ -1,0 +1,31 @@
+@startuml
+
+title Guiで入力されたテキストからクラス図を表示する
+
+|Gui|
+start
+:読み込んだテキストと出力形式を渡す;
+|Core|
+:テキストを\nクラス図に変換する;
+if (出力形式は?) then (画像)
+  |Core|
+  :クラス図を\n画像で出力する;
+  -[#blue]->
+  |Gui|
+  :クラス図を画像で\n画面上に表示する;
+  stop
+elseif (出力形式は?) then (テキスト)
+  |Core|
+  :クラス図を\nASCIIで出力する;
+  |Gui|
+  -[#green]->
+  :クラス図をテキストで\n画面上に表示する;
+  stop
+else (それ以外)
+  |Core|
+  :エラー発生時処理を行う;
+  |Gui|
+  stop
+endif
+
+@enduml

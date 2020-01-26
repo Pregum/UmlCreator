@@ -1,0 +1,18 @@
+@startuml usecase
+
+left to right direction
+actor Core
+actor CUI
+actor GUI
+
+rectangle クラス図出力{
+  CUI --> (クラス情報を受け付ける)
+  CUI --> (クラス図を表示する)
+
+  GUI --> (クラス情報を受け付ける)
+  GUI --> (クラス図を表示する)
+
+  (クラス情報をクラス図に変換する) <-- Core
+}
+
+@enduml

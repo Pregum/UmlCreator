@@ -1,0 +1,85 @@
+@startuml Diagram_class
+
+title Diagram名前空間のクラス図
+
+package Diagram <<Frame>>
+{
+  interface IRootDiagram
+  {
+    + DataNodes: IReadOnlyList<IDiagram>
+    + HasDataNodes: bool
+    + BehaviorNodes: IReadONlyList<IDiagram>
+    + HasBehaviorNodes: bool
+  }
+
+  interface IDiagram
+  {
+    + Name: string
+    + Type: string
+    + FullName: string
+    + Accessibility: AccessLevel
+  }
+
+  enum AccessLevel
+  {
+    Private,
+    Protected,
+    PrivateProtected,
+    InternalProtected,
+    Internal,
+    Public
+  }
+
+  class ClassNode
+  {
+    --<<impl IDiagram>>--
+    + Name: string
+    + Type: string
+    + FullName: string
+    + Accessibility: AccessLevel
+    --<<impl IRootDiagram>>--
+    + DataNodes: IReadOnlyList<IDiagram>
+    + HasDataNodes: bool
+    + BehaviorNodes: IReadONlyList<IDiagram>
+    + HasBehaviorNodes: bool
+  }
+
+  class FieldNode
+  {
+    --<<impl IDiagram>>--
+    + Name: string
+    + Type: string
+    + FullName: string
+    + Accessibility: AccessLevel
+  }
+
+  class PropertyNode
+  {
+    --<<impl IDiagram>>--
+    + Name: string
+    + Type: string
+    + FullName: string
+    + Accessibility: AccessLevel
+  }
+
+  class MethodNode
+  {
+    --<<impl IDiagram>>--
+    + Name: string
+    + Type: string
+    + FullName: string
+    + Accessibility: AccessLevel
+  }
+}
+
+FieldNode .u.|> IDiagram
+PropertyNode .u.|> IDiagram
+MethodNode .u.|> IDiagram
+IRootDiagram .u.|> IDiagram
+
+ClassNode .u.|> IRootDiagram
+ClassNode --> IDiagram
+
+IDiagram -> AccessLevel
+
+@enduml

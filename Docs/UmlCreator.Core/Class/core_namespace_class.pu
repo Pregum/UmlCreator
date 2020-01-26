@@ -1,0 +1,57 @@
+@startuml core class diagram
+
+title Core名前空間のクラス図
+
+package Diagram <<Frame>>
+{
+  interface IRootNode
+  {
+  }
+}
+
+package Facade <<Frame>>
+{
+  class GeneratorFactory
+  {
+    {static} Create<T>: ClassDiagramGenerator<T>
+  }
+
+  class ClassDiagramGenerator<T>
+  {
+    + InputDiagram: IRootNode
+    + OutputDiagram: T
+    - parser: InputParser
+    - builder: IBuilder<T>
+    --<<constructor>>--
+    ~ ClassDiagramGenerator(IBuilder<T> builder)
+    --
+    + MakeDiagram(): T
+  }
+}
+
+package Builder <<Frame>>
+{
+  interface IBuilder<T>
+  {
+    MakeDiagram(IRootNode rootNode): T
+  }
+}
+
+package Parser <<Frame>>
+{
+  class InputParser
+  {
+    + ParseDiagram(string input): IRootNode
+  }
+}
+
+ClassDiagramGenerator --> IBuilder
+ClassDiagramGenerator --> InputParser
+ClassDiagramGenerator --> IRootNode
+
+GeneratorFactory --> ClassDiagramGenerator
+GeneratorFactory -> IBuilder
+
+IBuilder -> IRootNode
+
+@endluml

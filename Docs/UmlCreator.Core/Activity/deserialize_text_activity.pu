@@ -1,0 +1,64 @@
+@startuml
+
+title テキストをクラス図オブジェクトに変換する(デシリアライズ)
+'OOPの用語について参考資料: https://qiita.com/suin/items/3657f0ebde7f63c632f3
+
+' 属性: field, property等
+' 操作: method, constructor等
+
+|UI|
+start
+:テキストと出力形式を渡す;
+
+|Core|
+:テキストを受け取る;
+:テキストをクラス名から順にパースする;
+note right
+  事前条件: テキストがスキーマに則っている。
+  事後条件: クラス図オブジェクトが生成されている
+  不変条件: 特になし
+end note
+:クラス図のパターンであるか確認;
+if (クラス図のパターンであるか?) then (true)
+  if (属性は存在するか?) then (true)
+    :属性をパースする;
+    if (パースが成功したか?) then (true)
+      :属性のインスタンスを生成する;
+    else (false)
+      ' 事後条件を保証できないため
+      #Orange:エラー発生時処理を行う;
+      detach
+    endif
+  else (false)
+  endif
+
+  if (操作は存在するか?) then (true)
+    :操作をパースする;
+    if (パースが成功したか?) then (true)
+      :操作のインスタンスを生成する;
+    else (false)
+      ' 事後条件を保証できないため
+      #Orange:エラー発生時処理を行う;
+      detach
+    endif
+  endif
+  :属性と操作のインスタンスを\n引数にしたクラス図のインスタンスを生成する;
+
+else (false)
+  #Orange:エラー発生時処理を行う;
+  detach
+endif
+stop
+
+|UI|
+#Orange:エラー発生時処理を行う;
+
+note right
+  Coreから例外を補足
+end note
+-[#red]-> 例外発生;
+:構文エラーのメッセージを表示;
+-[#red]->
+stop
+|Core|
+@enduml
