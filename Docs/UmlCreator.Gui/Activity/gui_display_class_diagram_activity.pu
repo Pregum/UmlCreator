@@ -23,8 +23,8 @@ elseif (出力形式は?) then (テキスト)
   stop
 else (それ以外)
   |Core|
-  :エラー発生時処理を行う;
-  |Gui|
+  -[#red]->
+  #Orange:エラー発生時処理を行う;
   stop
 endif
 
