@@ -36,6 +36,9 @@ namespace UmlCreator.Core.Parser
         from type in Parse.LetterOrDigit.Many().Token().Text()
         select new FieldNode(name, type, modifier);
 
+        /// <summary>
+        /// メソッドの引数を表すパーサです。
+        /// </summary>
         private readonly static Parser<INode> ArgumentNode =
             from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Token().Text()
             from delimiter in Parse.Char(':')
