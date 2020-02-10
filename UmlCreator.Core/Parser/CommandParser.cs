@@ -55,10 +55,15 @@ namespace UmlCreator.Core.Parser
         private readonly static Parser<string> OutputParser =
             QuoteOutputParser.Or(NormalOutputParser);
 
+        private readonly static Parser<OutputType> OutputTypeOption =
+            from option in Sprache.Parse.String("--png").Or(Sprache.Parse.String("--ascii")).Token().Text().Optional()
+            select option.IsEmpty ? default : option.Get() == "--png" ? OutputType.Image : OutputType.Ascii;
+
         private readonly static Parser<CommandParser> Parser =
             from input in InputParser
             from output in Sprache.Parse.String("-o").Token().Then(x => OutputParser)
-            select new CommandParser(input, output);
+            from options in OutputTypeOption
+            select new CommandParser(input, output, options);
 
 
         public static CommandParser Parse(string input)
@@ -70,10 +75,11 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// ctor
         /// </summary>
-        public CommandParser(string input, string output)
+        public CommandParser(string input, string output, OutputType outputType)
         {
             InputPath = input;
             OutputPath = output;
+            OutputType = outputType;
         }
     }
 }
