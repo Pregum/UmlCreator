@@ -12,9 +12,9 @@ namespace UmlCreator.Core.Diagram
 
         public bool HasDataNodes => _dataNodes.Any();
 
-        private List<INode> _behaviorNodes;
+        private List<IOperationalNode> _behaviorNodes;
 
-        public IReadOnlyList<INode> BehaviorNodes => _behaviorNodes.AsReadOnly();
+        public IReadOnlyList<IOperationalNode> BehaviorNodes => _behaviorNodes.AsReadOnly();
 
         public bool HasBehaviorNodes => _behaviorNodes.Any();
 
@@ -38,10 +38,10 @@ namespace UmlCreator.Core.Diagram
             Type = type;
             Accessibility = accessibility;
             var dataNodes = nodes.Where(x => x is FieldNode || x is PropertyNode);
-            var behaviorNodes = nodes.Where(x => x is MethodNode);
+            var behaviorNodes = nodes.Where(x => x is MethodNode)?.Cast<IOperationalNode>();
 
             _dataNodes = dataNodes != null ? new List<INode>(dataNodes) : new List<INode>();
-            _behaviorNodes = behaviorNodes != null ? new List<INode>(behaviorNodes) : new List<INode>();
+            _behaviorNodes = behaviorNodes != null ? new List<IOperationalNode>(behaviorNodes) : new List<IOperationalNode>();
         }
     }
 }

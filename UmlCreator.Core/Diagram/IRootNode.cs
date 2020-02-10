@@ -22,7 +22,7 @@ namespace UmlCreator.Core.Diagram
         /// <summary>
         /// 操作(メソッド)のノード
         /// </summary>
-        IReadOnlyList<INode> BehaviorNodes { get; }
+        IReadOnlyList<IOperationalNode> BehaviorNodes { get; }
 
         /// <summary>
         /// BehaviorNodesの要素の有無
