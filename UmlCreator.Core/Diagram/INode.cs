@@ -24,12 +24,12 @@ namespace UmlCreator.Core.Diagram
         string FullName => string.Join(" ", AccessibilityString, Name, ":", Type);
 
         /// <summary>
-        /// アクセス修飾子
+        /// アクセスレベル
         /// </summary>
         AccessLevel Accessibility { get; }
 
         /// <summary>
-        /// アクセス修飾子の文字列表記
+        /// アクセスレベルの文字列表記
         /// </summary>
         string AccessibilityString => (this.Accessibility) switch
         {

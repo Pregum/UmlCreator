@@ -307,9 +307,48 @@ _test7:float
             // Act
 
             // Assert
-            Assert.Throws<ArgumentException>(
-                () => _classDiagramGenerator.GenerateClassDiagram(testData));
+            Assert.Throws<ArgumentException>(() => _classDiagramGenerator.GenerateClassDiagram(testData));
+        }
+
+        [Theory(DisplayName = "引数テスト1個")]
+        [InlineData("class Hoge{+Build(para: string): void}")]
+        public void ArgumentParserTestInBehaviorNode1(string value)
+        {
+            // Arrange
+
+            // Act
+            _classDiagramGenerator.GenerateClassDiagram(value);
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+
+            // Assert
+            Assert.Equal("para", behaviorNodes[0].Arguments[0].Name);
+            Assert.Equal("string", behaviorNodes[0].Arguments[0].Type);
+            Assert.Equal("Build()", behaviorNodes[0].Name);
+            Assert.Equal("void", behaviorNodes[0].Type);
+        }
+
+
+        [Theory(DisplayName = "引数テスト2個")]
+        [InlineData("class Hoge{-First(elem: object): int\n +Build(para:string, time : DateTime): void}")]
+        public void ArgumentParserTestInBehaviorNode2(string value)
+        {
+            // Arrange
+
+            // Act
+            _classDiagramGenerator.GenerateClassDiagram(value);
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+
+            // Assert
+            Assert.Equal("First()", behaviorNodes[0].Name);
+            Assert.Equal("int", behaviorNodes[0].Type);
+            Assert.Equal("elem", behaviorNodes[0].Arguments[0].Name);
+            Assert.Equal("object", behaviorNodes[0].Arguments[0].Type);
+            Assert.Equal("Build()", behaviorNodes[1].Name);
+            Assert.Equal("void", behaviorNodes[1].Type);
+            Assert.Equal("para", behaviorNodes[1].Arguments[0].Name);
+            Assert.Equal("string", behaviorNodes[1].Arguments[0].Type);
+            Assert.Equal("time", behaviorNodes[1].Arguments[1].Name);
+            Assert.Equal("DateTime", behaviorNodes[1].Arguments[1].Type);
         }
     }
-
 }

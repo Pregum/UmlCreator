@@ -36,6 +36,12 @@ namespace UmlCreator.Core.Parser
         from type in Parse.LetterOrDigit.Many().Token().Text()
         select new FieldNode(name, type, modifier);
 
+        private readonly static Parser<INode> ArgumentNode =
+            from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Token().Text()
+            from delimiter in Parse.Char(':')
+            from type in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Token().Text()
+            select new ArgumentNode(name, type);
+
         /// <summary>
         /// メソッドを表すパーサです。
         /// </summary>
@@ -46,12 +52,15 @@ namespace UmlCreator.Core.Parser
             .Or(Parse.Char('#').Return(AccessLevel.Protected))
             .Or(Parse.Char('+').Return(AccessLevel.Public))
             .Or(Parse.Return(AccessLevel.Package))).Token()
-        from name in Parse.ChainOperator(Parse.Char('_'), Parse.LetterOrDigit.Many().Token().Text(), (lhs, rhs, op) => lhs + op)
+            //from name in Parse.ChainOperator(Parse.Char('_'), Parse.LetterOrDigit.Many().Token().Text(), (lhs, rhs, op) => lhs + op)
+        from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Text()
         from openBlaces in Parse.Char('(').Token()
+        // args
+        from arguments in ArgumentNode.DelimitedBy(Parse.Char(',')).Or(Parse.Return(default(IEnumerable<INode>)))
         from closeBlaces in Parse.Char(')').Token()
         from colon in Parse.Char(':').Token()
         from type in Parse.LetterOrDigit.Many().Token().Text()
-        select new MethodNode(name + openBlaces + closeBlaces, type, modifier);
+        select new MethodNode(name + openBlaces + closeBlaces, type, modifier, arguments);
 
         /// <summary>
         /// ctor
