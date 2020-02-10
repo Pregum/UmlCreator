@@ -12,7 +12,7 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// クラスを表すパーサです。
         /// </summary>
-        /// <example> "class Hoge { }</example>
+        /// <example>class Hoge { }</example>
         private readonly static Parser<IRootNode> classDiagram =
             from @class in Parse.String("class").Token().Text()
             from className in Parse.LetterOrDigit.AtLeastOnce().Token().Text()
@@ -39,6 +39,7 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// メソッドの引数を表すパーサです。
         /// </summary>
+        /// <example> count: int</example>
         private readonly static Parser<INode> ArgumentNode =
             from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Token().Text()
             from delimiter in Parse.Char(':')
@@ -48,14 +49,13 @@ namespace UmlCreator.Core.Parser
         /// <summary>
         /// メソッドを表すパーサです。
         /// </summary>
-        /// <example> "# GetName():string"</example>
+        /// <example> "# GetName(hoge:int, test:string):string"</example>
         private readonly static Parser<INode> behaviorNode =
         from modifier in (Parse.Char('-').Return(AccessLevel.Private)
             .Or(Parse.Char('~').Return(AccessLevel.Package))
             .Or(Parse.Char('#').Return(AccessLevel.Protected))
             .Or(Parse.Char('+').Return(AccessLevel.Public))
             .Or(Parse.Return(AccessLevel.Package))).Token()
-            //from name in Parse.ChainOperator(Parse.Char('_'), Parse.LetterOrDigit.Many().Token().Text(), (lhs, rhs, op) => lhs + op)
         from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Text()
         from openBlaces in Parse.Char('(').Token()
             // args
@@ -86,7 +86,6 @@ namespace UmlCreator.Core.Parser
             }
             catch (ParseException e)
             {
-                e.ToString();
                 throw new ArgumentException("入力が正しくありません。", e);
             }
         }
