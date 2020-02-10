@@ -8,9 +8,19 @@ namespace UmlCreator.Core.Parser
 {
     public class CommandParser
     {
-
+        /// <summary>
+        /// 入力ファイルパス
+        /// </summary>
         public string InputPath { get; private set; }
+
+        /// <summary>
+        /// 出力ファイルパス
+        /// </summary>
         public string OutputPath { get; private set; }
+
+        /// <summary>
+        /// 出力形式
+        /// </summary>
         public OutputType OutputType { get; private set; }
 
         private readonly static Parser<string> NormalInputParser =
@@ -47,7 +57,7 @@ namespace UmlCreator.Core.Parser
 
         private readonly static Parser<CommandParser> Parser =
             from input in InputParser
-            from output in Sprache.Parse.Regex("-o").Then(x => OutputParser)
+            from output in Sprache.Parse.String("-o").Token().Then(x => OutputParser)
             select new CommandParser(input, output);
 
 
