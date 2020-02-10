@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Linq;
 using UmlCreator.Core.Diagram;
 using UmlCreator.Core.Facade;
@@ -34,7 +34,7 @@ _test7:float
             _classDiagramGenerator = GeneratorFactory.Create<string>();
         }
 
-        [Theory(DisplayName ="‹óƒNƒ‰ƒXƒeƒXƒg")]
+        [Theory(DisplayName ="ç©ºã‚¯ãƒ©ã‚¹ãƒ†ã‚¹ãƒˆ")]
         [InlineData("class Empty{}")]
         public void EmptyClassTest(string testData)
         {
@@ -47,7 +47,7 @@ _test7:float
             Assert.Equal("Empty", _classDiagramGenerator.InputDiagram.Name);
         }
 
-        [Fact(DisplayName = "ƒNƒ‰ƒX–¼æ“¾ƒeƒXƒg")]
+        [Fact(DisplayName = "ã‚¯ãƒ©ã‚¹åå–å¾—ãƒ†ã‚¹ãƒˆ")]
         public void ClassNameTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case1);
@@ -56,16 +56,16 @@ _test7:float
             Assert.Equal("Fuga", _classDiagramGenerator.InputDiagram.Name);
         }
 
-        [Fact(DisplayName = "ƒAƒNƒZƒXCüqæ“¾ƒeƒXƒg")]
+        [Fact(DisplayName = "ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­å–å¾—ãƒ†ã‚¹ãƒˆ")]
         public void FieldAccessibilityTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case2);
             Assert.Equal(AccessLevel.Public, _classDiagramGenerator.InputDiagram.DataNodes.First().Accessibility);
         }
 
-        // ‘‚­—\’è‚ÌƒeƒXƒgƒP[ƒX
-        // 1. Šeƒg[ƒNƒ“‚ª—£‚ê‚Ä‚¢‚éê‡‚Ì‰ğÍƒeƒXƒg
-        [Fact(DisplayName = "Šeƒg[ƒNƒ“‚ª—£‚ê‚Ä‚¢‚éê‡‚Ì‰ğÍƒeƒXƒg")]
+        // æ›¸ãäºˆå®šã®ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹
+        // 1. å„ãƒˆãƒ¼ã‚¯ãƒ³ãŒé›¢ã‚Œã¦ã„ã‚‹å ´åˆã®è§£æãƒ†ã‚¹ãƒˆ
+        [Fact(DisplayName = "å„ãƒˆãƒ¼ã‚¯ãƒ³ãŒé›¢ã‚Œã¦ã„ã‚‹å ´åˆã®è§£æãƒ†ã‚¹ãƒˆ")]
         public void TokenSeparatedTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case4);
@@ -76,8 +76,8 @@ _test7:float
             Assert.Equal("void", diagram.Type);
         }
 
-        // 2. Šeƒg[ƒNƒ“‚ª‚­‚Á‚Â‚¢‚Ä‚¢‚éê‡‚Ì‰ğÍƒeƒXƒg
-        [Fact(DisplayName = "Šeƒg[ƒNƒ“‚ª‚­‚Á‚Â‚¢‚Ä‚¢‚éê‡‚Ì‰ğÍƒeƒXƒg")]
+        // 2. å„ãƒˆãƒ¼ã‚¯ãƒ³ãŒãã£ã¤ã„ã¦ã„ã‚‹å ´åˆã®è§£æãƒ†ã‚¹ãƒˆ
+        [Fact(DisplayName = "å„ãƒˆãƒ¼ã‚¯ãƒ³ãŒãã£ã¤ã„ã¦ã„ã‚‹å ´åˆã®è§£æãƒ†ã‚¹ãƒˆ")]
         public void ChunckTokenTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case5);
@@ -87,7 +87,7 @@ _test7:float
             Assert.Equal("float", diagram.Type);
         }
 
-        [Fact(DisplayName = "Šeƒg[ƒNƒ“+’†Š‡ŒÊ‚ª‚­‚Á‚Â‚¢‚Ä‚¢‚éê‡‚Ì‰ğÍƒeƒXƒg")]
+        [Fact(DisplayName = "å„ãƒˆãƒ¼ã‚¯ãƒ³+ä¸­æ‹¬å¼§ãŒãã£ã¤ã„ã¦ã„ã‚‹å ´åˆã®è§£æãƒ†ã‚¹ãƒˆ")]
         public void ChunckTokenTest2()
         {
             _classDiagramGenerator.GenerateClassDiagram(case8);
@@ -98,9 +98,9 @@ _test7:float
             Assert.Equal("float", diagram.Type);
         }
 
-        // 3. ƒtƒB[ƒ‹ƒhƒƒ“ƒo‚ÌƒeƒXƒg
-        // 3-1. –¼‘O‚Ìæ“ª‚ª_‚ÌƒeƒXƒg
-        [Fact(DisplayName = "–¼‘O‚Ìæ“ª‚ª_‚ÌƒeƒXƒg")]
+        // 3. ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒ¡ãƒ³ãƒã®ãƒ†ã‚¹ãƒˆ
+        // 3-1. åå‰ã®å…ˆé ­ãŒ_ã®ãƒ†ã‚¹ãƒˆ
+        [Fact(DisplayName = "åå‰ã®å…ˆé ­ãŒ_ã®ãƒ†ã‚¹ãƒˆ")]
         public void FieldNameStartWith_Test1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case6);
@@ -110,8 +110,8 @@ _test7:float
             Assert.Equal("float", diagram.Type);
         }
 
-        // 3-2. ƒAƒNƒZƒXCüq‚ÌƒeƒXƒg
-        [Fact(DisplayName = "ƒtƒB[ƒ‹ƒhƒƒ“ƒo‚ÌƒAƒNƒZƒXCüqÈ—ª‚ÌƒeƒXƒg")]
+        // 3-2. ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ã®ãƒ†ã‚¹ãƒˆ
+        [Fact(DisplayName = "ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒ¡ãƒ³ãƒã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­çœç•¥æ™‚ã®ãƒ†ã‚¹ãƒˆ")]
         public void PrivateAccessTest()
         {
             _classDiagramGenerator.GenerateClassDiagram(case7);
@@ -124,7 +124,7 @@ _test7:float
         {
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh”ñ‘¶İ‚ÌHasBehaviorNodesƒvƒƒpƒeƒBƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰éå­˜åœ¨æ™‚ã®HasBehaviorNodesãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ†ã‚¹ãƒˆ")]
         [InlineData(@"class Hoge{-_data:float}")]
         public void HasBehaviorNodesTestWhenBehaviorNodeNothing(string testData)
         {
@@ -137,7 +137,7 @@ _test7:float
             Assert.False(_classDiagramGenerator.InputDiagram.HasBehaviorNodes);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌƒAƒNƒZƒXCüqÈ—ªƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­çœç•¥ãƒ†ã‚¹ãƒˆ")]
         [InlineData(@"class Hoge{Test():float}")]
         public void BehaviorAccessModifierOmmitedTest1(string testData)
         {
@@ -151,7 +151,7 @@ _test7:float
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌƒAƒNƒZƒXCüqƒeƒXƒg(Private)")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ãƒ†ã‚¹ãƒˆ(Private)")]
         [InlineData(@"class Hoge{-Test():float}")]
         public void BehaviorAccessModifierPrivateTest1(string testData)
         {
@@ -166,7 +166,7 @@ _test7:float
         }
 
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌƒAƒNƒZƒXCüqƒeƒXƒg(Package)")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ãƒ†ã‚¹ãƒˆ(Package)")]
         [InlineData(@"class Hoge{~Test():float}")]
         public void BehaviorAccessModifierPackageTest1(string testData)
         {
@@ -181,7 +181,7 @@ _test7:float
         }
 
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌƒAƒNƒZƒXCüqƒeƒXƒg(Protected)")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ãƒ†ã‚¹ãƒˆ(Protected)")]
         [InlineData(@"class Hoge{#Test():float}")]
         public void BehaviorAccessModifierProtectedTest1(string testData)
         {
@@ -195,7 +195,7 @@ _test7:float
             Assert.Equal(AccessLevel.Protected, diagram.Accessibility);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌƒAƒNƒZƒXCüqƒeƒXƒg(Public)")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ãƒ†ã‚¹ãƒˆ(Public)")]
         [InlineData(@"class Hoge{+Test():float}")]
         public void BehaviorAccessModifierPublicTest1(string testData)
         {
@@ -209,7 +209,7 @@ _test7:float
             Assert.Equal(AccessLevel.Public, diagram.Accessibility);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚Ì–¼‘OƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®åå‰ãƒ†ã‚¹ãƒˆ")]
         [InlineData(@"class Hoge{+Create():void}")]
         public void BehaviorMethodNameMatchTest(string testData)
         {
@@ -223,7 +223,7 @@ _test7:float
             Assert.Equal("Create()", diagram.Name);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌŒ^ƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®å‹ãƒ†ã‚¹ãƒˆ")]
         [InlineData(@"class Hoge{+Create():void}")]
         public void BehaviorMethodTypeMatchTest(string testData)
         {
@@ -237,7 +237,7 @@ _test7:float
             Assert.Equal("void", diagram.Type);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚ÌŒÂ”Šm”FƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®å€‹æ•°ç¢ºèªãƒ†ã‚¹ãƒˆ")]
         [InlineData("class Hoge{+Create():void\nDestroy():void}")]
         public void BehaviorMethodCountTest(string testData)
         {
@@ -252,7 +252,7 @@ _test7:float
         }
 
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚Ì•¡”‚ÌƒAƒNƒZƒXCüqƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®è¤‡æ•°ã®ã‚¢ã‚¯ã‚»ã‚¹ä¿®é£¾å­ãƒ†ã‚¹ãƒˆ")]
         [InlineData("class Hoge{#Create():void\n-Destroy():void}")]
         public void BehaviorSomeMethodAccessModifierTest(string testData)
         {
@@ -267,7 +267,7 @@ _test7:float
             Assert.Equal(AccessLevel.Private, behaviorNodes[1].Accessibility);
         }
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚Ì•¡”‚Ì–¼‘OƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®è¤‡æ•°ã®åå‰ãƒ†ã‚¹ãƒˆ")]
         [InlineData("class Hoge{+Create():void\nDestroy():void}")]
         public void BehaviorSomeMethodNameTest(string testData)
         {
@@ -283,7 +283,7 @@ _test7:float
         }
 
 
-        [Theory(DisplayName = "ƒƒ\ƒbƒh‚Ì•¡”‚ÌŒ^ƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ¡ã‚½ãƒƒãƒ‰ã®è¤‡æ•°ã®å‹ãƒ†ã‚¹ãƒˆ")]
         [InlineData("class Hoge{#Create():int\n-Destroy():string}")]
         public void BehaviorSomeMethodTypeTest(string testData)
         {
@@ -298,7 +298,7 @@ _test7:float
             Assert.Equal("string", behaviorNodes[1].Type);
         }
 
-        [Theory(DisplayName = "ƒp[ƒX¸”sƒeƒXƒg")]
+        [Theory(DisplayName = "ãƒ‘ãƒ¼ã‚¹å¤±æ•—æ™‚ãƒ†ã‚¹ãƒˆ")]
         [InlineData("class ff #Create():int}")]
         public void ParseFailureTest(string testData)
         {
@@ -310,7 +310,7 @@ _test7:float
             Assert.Throws<ArgumentException>(() => _classDiagramGenerator.GenerateClassDiagram(testData));
         }
 
-        [Theory(DisplayName = "ˆø”ƒeƒXƒg1ŒÂ")]
+        [Theory(DisplayName = "å¼•æ•°ãƒ†ã‚¹ãƒˆ1å€‹")]
         [InlineData("class Hoge{+Build(para: string): void}")]
         public void ArgumentParserTestInBehaviorNode1(string value)
         {
@@ -328,7 +328,7 @@ _test7:float
         }
 
 
-        [Theory(DisplayName = "ˆø”ƒeƒXƒg2ŒÂ")]
+        [Theory(DisplayName = "å¼•æ•°ãƒ†ã‚¹ãƒˆ2å€‹")]
         [InlineData("class Hoge{-First(elem: object): int\n +Build(para:string, time : DateTime): void}")]
         public void ArgumentParserTestInBehaviorNode2(string value)
         {
