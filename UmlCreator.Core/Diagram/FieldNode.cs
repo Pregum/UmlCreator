@@ -15,9 +15,9 @@ namespace UmlCreator.Core.Diagram
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="type"></param>
-        /// <param name="accessibility"></param>
+        /// <param name="name">名前</param>
+        /// <param name="type">型</param>
+        /// <param name="accessibility">アクセス修飾子</param>
         public FieldNode(string name, string type, AccessLevel accessibility)
         {
             Name = name;
