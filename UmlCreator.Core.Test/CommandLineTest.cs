@@ -109,5 +109,14 @@ namespace UmlCreator.Core.Test
         {
             Assert.Throws<Sprache.ParseException>(() => CommandParser.Parse(val));
         }
+
+        [Theory(DisplayName ="オプション未記入のテスト")]
+        [InlineData(@"C:\tmp\input_test.pu -o C:\tmp\out")]
+        public void OptionNothingTest(string val)
+        {
+            var parser = CommandParser.Parse(val);
+            Assert.Equal(OutputType.None, parser.OutputType);
+        }
+
     }
 }
