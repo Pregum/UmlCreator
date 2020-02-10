@@ -19,7 +19,7 @@ namespace UmlCreator.Core.Diagram
         string Type { get; }
 
         /// <summary>
-        /// 詳細名
+        /// アクセスレベル+メソッドシグネチャ+型をまとめた名前
         /// </summary>
         string FullName => string.Join(" ", AccessibilityString, Name, ":", Type);
 

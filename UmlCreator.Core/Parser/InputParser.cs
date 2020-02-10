@@ -55,12 +55,12 @@ namespace UmlCreator.Core.Parser
             //from name in Parse.ChainOperator(Parse.Char('_'), Parse.LetterOrDigit.Many().Token().Text(), (lhs, rhs, op) => lhs + op)
         from name in Parse.Identifier(Parse.Letter, Parse.LetterOrDigit).Token().Text()
         from openBlaces in Parse.Char('(').Token()
-        // args
+            // args
         from arguments in ArgumentNode.DelimitedBy(Parse.Char(',')).Or(Parse.Return(default(IEnumerable<INode>)))
         from closeBlaces in Parse.Char(')').Token()
         from colon in Parse.Char(':').Token()
         from type in Parse.LetterOrDigit.Many().Token().Text()
-        select new MethodNode(name + openBlaces + closeBlaces, type, modifier, arguments);
+        select new MethodNode(name, type, modifier, arguments);
 
         /// <summary>
         /// ctor
