@@ -119,11 +119,6 @@ _test7:float
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
         }
 
-        [Fact]
-        public void Hogera1()
-        {
-        }
-
         [Theory(DisplayName = "メソッド非存在時のHasBehaviorNodesプロパティテスト")]
         [InlineData(@"class Hoge{-_data:float}")]
         public void HasBehaviorNodesTestWhenBehaviorNodeNothing(string testData)
@@ -220,7 +215,8 @@ _test7:float
             var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
 
             // Assert
-            Assert.Equal("Create()", diagram.Name);
+            Assert.Equal("Create", diagram.Name);
+            Assert.Equal("Create()", diagram.NameWithArgs);
         }
 
         [Theory(DisplayName = "メソッドの型テスト")]
@@ -278,8 +274,10 @@ _test7:float
             var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
 
             // Assert
-            Assert.Equal("Create()", behaviorNodes[0].Name);
-            Assert.Equal("Destroy()", behaviorNodes[1].Name);
+            Assert.Equal("Create", behaviorNodes[0].Name);
+            Assert.Equal("Create()", behaviorNodes[0].NameWithArgs);
+            Assert.Equal("Destroy", behaviorNodes[1].Name);
+            Assert.Equal("Destroy()", behaviorNodes[1].NameWithArgs);
         }
 
 
@@ -323,8 +321,10 @@ _test7:float
             // Assert
             Assert.Equal("para", behaviorNodes[0].Arguments[0].Name);
             Assert.Equal("string", behaviorNodes[0].Arguments[0].Type);
-            Assert.Equal("Build()", behaviorNodes[0].Name);
+            Assert.Equal("Build", behaviorNodes[0].Name);
             Assert.Equal("void", behaviorNodes[0].Type);
+            Assert.Equal("Build(para : string)", behaviorNodes[0].NameWithArgs);
+            Assert.Equal("+ Build(para : string) : void", behaviorNodes[0].FullName);
         }
 
 
@@ -339,11 +339,15 @@ _test7:float
             var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
 
             // Assert
-            Assert.Equal("First()", behaviorNodes[0].Name);
+            Assert.Equal("First", behaviorNodes[0].Name);
+            Assert.Equal("First(elem : object)", behaviorNodes[0].NameWithArgs);
+            Assert.Equal("- First(elem : object) : int", behaviorNodes[0].FullName);
             Assert.Equal("int", behaviorNodes[0].Type);
             Assert.Equal("elem", behaviorNodes[0].Arguments[0].Name);
             Assert.Equal("object", behaviorNodes[0].Arguments[0].Type);
-            Assert.Equal("Build()", behaviorNodes[1].Name);
+            Assert.Equal("Build", behaviorNodes[1].Name);
+            Assert.Equal("Build(para : string, time : DateTime)", behaviorNodes[1].NameWithArgs);
+            Assert.Equal("+ Build(para : string, time : DateTime) : void", behaviorNodes[1].FullName);
             Assert.Equal("void", behaviorNodes[1].Type);
             Assert.Equal("para", behaviorNodes[1].Arguments[0].Name);
             Assert.Equal("string", behaviorNodes[1].Arguments[0].Type);
