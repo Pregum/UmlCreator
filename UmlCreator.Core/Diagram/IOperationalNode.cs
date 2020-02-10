@@ -16,6 +16,16 @@ namespace UmlCreator.Core.Diagram
         IReadOnlyList<INode> Arguments { get; }
 
         /// <summary>
+        /// 引数付きの名前
+        /// </summary>
+        string NameWithArgs => $"{Name}({string.Join(", ", Arguments.Select(x => $"{x.Name} : {x.Type}"))})";
+
+        /// <summary>
+        /// アクセスレベル+メソッドシグネチャ+型をまとめた名前
+        /// </summary>
+        string INode.FullName => $"{string.Join(" ", AccessibilityString, NameWithArgs, ":", Type)}";
+
+        /// <summary>
         /// 引数リストを持っているかどうか
         /// </summary>
         bool HasArguments { get => Arguments?.Any() ?? false; }
