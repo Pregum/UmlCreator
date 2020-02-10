@@ -4,15 +4,15 @@ title Diagram名前空間のクラス図
 
 package Diagram <<Frame>>
 {
-  interface IRootDiagram
+  interface IRootNode
   {
-    + DataNodes: IReadOnlyList<IDiagram>
+    + DataNodes: IReadOnlyList<INode>
     + HasDataNodes: bool
-    + BehaviorNodes: IReadONlyList<IDiagram>
+    + BehaviorNodes: IReadONlyList<INode>
     + HasBehaviorNodes: bool
   }
 
-  interface IDiagram
+  interface INode
   {
     + Name: string
     + Type: string
@@ -32,21 +32,21 @@ package Diagram <<Frame>>
 
   class ClassNode
   {
-    --<<impl IDiagram>>--
+    --<<impl INode>>--
     + Name: string
     + Type: string
     + FullName: string
     + Accessibility: AccessLevel
-    --<<impl IRootDiagram>>--
-    + DataNodes: IReadOnlyList<IDiagram>
+    --<<impl IRootNode>>--
+    + DataNodes: IReadOnlyList<INode>
     + HasDataNodes: bool
-    + BehaviorNodes: IReadONlyList<IDiagram>
+    + BehaviorNodes: IReadONlyList<INode>
     + HasBehaviorNodes: bool
   }
 
   class FieldNode
   {
-    --<<impl IDiagram>>--
+    --<<impl INode>>--
     + Name: string
     + Type: string
     + FullName: string
@@ -55,7 +55,7 @@ package Diagram <<Frame>>
 
   class PropertyNode
   {
-    --<<impl IDiagram>>--
+    --<<impl INode>>--
     + Name: string
     + Type: string
     + FullName: string
@@ -64,22 +64,49 @@ package Diagram <<Frame>>
 
   class MethodNode
   {
-    --<<impl IDiagram>>--
+    --<<impl INode>>--
+    + Name: string
+    + Type: string
+    + Accessibility: AccessLevel
+    --<<impl IOperationalNode>>--
+    + FullName: string
+    + Arguments: IReadOnlyList<INode>
+    + HasArguments: bool
+  }
+
+  class ArgumentNode
+  {
+    --<<impl INode>>--
     + Name: string
     + Type: string
     + FullName: string
     + Accessibility: AccessLevel
   }
+
+  interface IOperationalNode
+  {
+    + Arguments: IReadOnlyList<INode>
+    + HasArguments: bool
+    + NameWithArgs: string
+    + <<override>> INode.FullName: string
+    --<<impl INode>>--
+    + Name: string
+    + Type: string
+    + Accessibility: AccessLevel
+  }
 }
 
-FieldNode .u.|> IDiagram
-PropertyNode .u.|> IDiagram
-MethodNode .u.|> IDiagram
-IRootDiagram .u.|> IDiagram
+FieldNode .u.|> INode
+PropertyNode .u.|> INode
+IRootNode .u.|> INode
+ArgumentNode .u.|> INode
+IOperationalNode .u.|> INode
 
-ClassNode .u.|> IRootDiagram
-ClassNode --> IDiagram
+MethodNode .u.|> IOperationalNode
 
-IDiagram -> AccessLevel
+ClassNode .u.|> IRootNode
+ClassNode --> INode
+
+INode -> AccessLevel
 
 @enduml
