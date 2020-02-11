@@ -1,0 +1,50 @@
+@startuml
+
+enum OutputType
+{
+  None,
+  Image,
+  Ascii
+}
+
+class CommandParser
+{
+  + {static} Parse(input: string): CommandLineParam
+}
+
+class CommandLineParam
+{
+}
+
+class FileParser
+{
+  + {static} Parse(input: CommandLineParam): FileParam
+}
+
+class FileParam
+{
+}
+
+class InputParser
+{
+}
+
+class ClassDiagramGenerator
+{
+
+}
+
+CommandParser -> OutputType
+CommandParser --> CommandLineParam
+CommandLineParam -> OutputType
+FileParser -> CommandParser
+FileParser --> CommandLineParam
+FileParser --> FileParam
+InputParser -> FileParser
+InputParser --> FileParam
+
+ClassDiagramGenerator --> CommandParser
+ClassDiagramGenerator --> FileParser
+ClassDiagramGenerator --> InputParser
+
+@enduml
