@@ -1,4 +1,6 @@
-@startuml
+@startuml command_parser_class
+
+title Cuiからのクラス図生成処理にかかわるオブジェクトのクラス図
 
 enum OutputType
 {
