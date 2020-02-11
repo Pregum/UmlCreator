@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media.Imaging;
 using UmlCreator.Core.Builder;
+using UmlCreator.Core.Serializer;
 
 namespace UmlCreator.Core.Facade
 {
@@ -20,11 +21,11 @@ namespace UmlCreator.Core.Facade
         {
             if (typeof(T) == typeof(string))
             {
-                return new ClassDiagramGenerator<T>((IBuilder<T>)new AsciiBuilder());
+                return new ClassDiagramGenerator<T>((IBuilder<T>)new AsciiBuilder(), (ISerializer<T>)new AsciiSerializer());
             }
             else if (typeof(T) == typeof(BitmapImage))
             {
-                return new ClassDiagramGenerator<T>((IBuilder<T>)new ImageBuilder());
+                return new ClassDiagramGenerator<T>((IBuilder<T>)new ImageBuilder(), (ISerializer<T>)new ImageSerializer());
             }
             else
             {
