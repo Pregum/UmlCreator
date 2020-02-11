@@ -1,0 +1,28 @@
+@startuml serializer_namespace_class
+
+title Serializer名前空間のクラス図
+
+frame Serializer {
+
+  interface ISerializer<T>
+  {
+    + Serialize(obj: T, fileInfo: System.IO.FileInfo): void
+  }
+
+  class ImageSerializer
+  {
+    --<<impl ISerializer>>--
+    + Serialize(obj: BitmapImage, fileInfo: FileInfo): void
+  }
+
+  class AsciiSerializer
+  {
+    --<<impl ISerializer>>--
+    + Serialize(obj: string, fileInfo: FileInfo): void
+  }
+}
+
+ImageSerializer .u.|> ISerializer
+AsciiSerializer .u.|> ISerializer
+
+@enduml

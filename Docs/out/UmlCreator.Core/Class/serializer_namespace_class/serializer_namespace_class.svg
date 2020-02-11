@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="303px" preserveAspectRatio="none" style="width:586px;height:303px;" version="1.1" viewBox="0 0 586 303" width="586px" zoomAndPan="magnify"><defs><filter height="300%" id="fl9cugl35jaj6" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="236" x="186.5" y="18.6855">Serializer名前空間のクラス図</text><!--cluster Serializer--><rect fill="#FFFFFF" filter="url(#fl9cugl35jaj6)" height="246" style="stroke: #000000; stroke-width: 1.5;" width="553" x="22" y="46.6406"/><path d="M98,47.6406 L98,57.25 L88,67.25 L22,67.25 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="66" x="25" y="62.1738">Serializer</text><!--class ISerializer--><rect fill="#FEFECE" filter="url(#fl9cugl35jaj6)" height="61.8359" id="ISerializer" style="stroke: #A80036; stroke-width: 1.5;" width="257" x="170.5" y="82.6406"/><ellipse cx="260.75" cy="98.6406" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M261.9219,103.3594 L262.6563,103.3594 L262.6563,105.5 L258.9688,105.5 L258.9688,103.3594 L259.7031,103.3594 L259.7031,94.0156 L258.9688,94.0156 L258.9688,91.875 L262.6563,91.875 L262.6563,94.0156 L261.9219,94.0156 L261.9219,103.3594 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="57" x="281.25" y="103.5508">ISerializer</text><rect fill="#FFFFFF" height="17.0938" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" width="9" x="421.5" y="79.6406"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="7" x="422.5" y="93.0977">T</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="171.5" x2="426.5" y1="114.6406" y2="114.6406"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="171.5" x2="426.5" y1="122.6406" y2="122.6406"/><ellipse cx="181.5" cy="133.6406" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="231" x="190.5" y="138.0596">Serialize(obj: T, fileInfo: System.IO.FileInfo): void</text><!--class ImageSerializer--><rect fill="#FEFECE" filter="url(#fl9cugl35jaj6)" height="71.6719" id="ImageSerializer" style="stroke: #A80036; stroke-width: 1.5;" width="259" x="38.5" y="204.6406"/><ellipse cx="120.75" cy="220.6406" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M124.4375,221.8438 Q124.1875,225.3281 123.0469,226.4844 Q122.0156,227.5 120.6094,227.5 Q119.2031,227.5 118.1719,226.4844 Q116.4219,224.7188 116.4219,221.0469 Q116.4219,216.7969 118.2969,214.8906 Q119.3438,213.875 120.6719,213.875 Q122.0781,213.875 122.9219,214.6875 Q124.4063,216.2031 124.3281,219.0781 L122.2031,219.0781 Q122.125,216.75 121.4844,216.1094 Q121.2031,215.8125 120.6719,215.8125 Q120.2188,215.8125 119.8594,216.1875 Q118.625,217.4063 118.625,220.9219 Q118.625,223.9688 119.6719,224.9844 Q120.0938,225.4219 120.6094,225.4219 Q121.0625,225.4219 121.5,224.9844 Q122.0625,224.4375 122.1406,221.8438 L124.4375,221.8438 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="86" x="141.25" y="225.5508">ImageSerializer</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="39.5" x2="296.5" y1="236.6406" y2="236.6406"/><ellipse cx="49.5" cy="265.4766" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="233" x="58.5" y="269.8955">Serialize(obj: BitmapImage, fileInfo: FileInfo): void</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="39.5" x2="122" y1="251.5586" y2="251.5586"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="92" x="122" y="255.5596">&lt;&lt;impl ISerializer&gt;&gt;</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="214" x2="296.5" y1="251.5586" y2="251.5586"/><!--class AsciiSerializer--><rect fill="#FEFECE" filter="url(#fl9cugl35jaj6)" height="71.6719" id="AsciiSerializer" style="stroke: #A80036; stroke-width: 1.5;" width="226" x="333" y="204.6406"/><ellipse cx="403.25" cy="220.6406" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M406.9375,221.8438 Q406.6875,225.3281 405.5469,226.4844 Q404.5156,227.5 403.1094,227.5 Q401.7031,227.5 400.6719,226.4844 Q398.9219,224.7188 398.9219,221.0469 Q398.9219,216.7969 400.7969,214.8906 Q401.8438,213.875 403.1719,213.875 Q404.5781,213.875 405.4219,214.6875 Q406.9063,216.2031 406.8281,219.0781 L404.7031,219.0781 Q404.625,216.75 403.9844,216.1094 Q403.7031,215.8125 403.1719,215.8125 Q402.7188,215.8125 402.3594,216.1875 Q401.125,217.4063 401.125,220.9219 Q401.125,223.9688 402.1719,224.9844 Q402.5938,225.4219 403.1094,225.4219 Q403.5625,225.4219 404,224.9844 Q404.5625,224.4375 404.6406,221.8438 L406.9375,221.8438 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="423.75" y="225.5508">AsciiSerializer</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="334" x2="558" y1="236.6406" y2="236.6406"/><ellipse cx="344" cy="265.4766" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="200" x="353" y="269.8955">Serialize(obj: string, fileInfo: FileInfo): void</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="334" x2="400" y1="251.5586" y2="251.5586"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="92" x="400" y="255.5596">&lt;&lt;impl ISerializer&gt;&gt;</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="492" x2="558" y1="251.5586" y2="251.5586"/><!--reverse link ISerializer to ImageSerializer--><path d="M252.394,159.1126 C236.834,173.9596 219.719,190.2906 204.992,204.3426 " fill="none" id="ISerializer&lt;-ImageSerializer" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="247.986,153.6426,267.289,144.8996,257.651,163.7706,247.986,153.6426" style="stroke: #A80036; stroke-width: 1.0;"/><!--reverse link ISerializer to AsciiSerializer--><path d="M350.003,158.0106 C367.898,173.2276 387.762,190.1186 404.756,204.5696 " fill="none" id="ISerializer&lt;-AsciiSerializer" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="345.286,163.1886,334.585,144.8996,354.355,152.5226,345.286,163.1886" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml serializer_namespace_class
+
+title Serializer名前空間のクラス図
+
+frame Serializer {
+
+  interface ISerializer<T>
+  {
+    + Serialize(obj: T, fileInfo: System.IO.FileInfo): void
+  }
+
+  class ImageSerializer
+  {
+    - -<<impl ISerializer>>- -
+    + Serialize(obj: BitmapImage, fileInfo: FileInfo): void
+  }
+
+  class AsciiSerializer
+  {
+    - -<<impl ISerializer>>- -
+    + Serialize(obj: string, fileInfo: FileInfo): void
+  }
+}
+
+ImageSerializer .u.|> ISerializer
+AsciiSerializer .u.|> ISerializer
+
+@enduml
+
+PlantUML version 1.2019.09(Tue Aug 27 01:19:51 JST 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.4+11
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: MS932
+Language: ja
+Country: JP
+--></g></svg>
