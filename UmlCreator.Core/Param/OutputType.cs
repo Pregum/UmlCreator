@@ -1,4 +1,4 @@
-﻿namespace UmlCreator.Core.Parser
+﻿namespace UmlCreator.Core.Param
 {
     /// <summary>
     /// 出力形式
