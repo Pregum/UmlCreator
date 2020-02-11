@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UmlCreator.Core.Param;
 using UmlCreator.Core.Parser;
 using Xunit;
 
