@@ -14,7 +14,7 @@ namespace UmlCreator.Core.Facade
         /// <summary>
         /// クラス図を作成する為に必要なインスタンスを生成します。
         /// </summary>
-        /// <typeparam name="T"> 出力する </typeparam>
+        /// <typeparam name="T"> 出力するファイルの形式 </typeparam>
         /// <returns></returns>
         public static ClassDiagramGenerator<T> Create<T>()
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UmlCreator.Core.Builder;
 using UmlCreator.Core.Diagram;
-
+using UmlCreator.Core.Param;
 using UmlCreator.Core.Parser;
 
 namespace UmlCreator.Core.Facade
@@ -39,6 +39,17 @@ namespace UmlCreator.Core.Facade
         public void GenerateClassDiagram(string diagramText)
         {
             InputDiagram = _parser.ParseDiagram(diagramText);
+            OutputDiagram = _builder.MakeDiagram(InputDiagram);
+        }
+
+        /// <summary>
+        /// クラス図を生成します。
+        /// </summary>
+        /// <param name="param"> コマンドラインから入力されたパラメータ </param>
+        public void GenerateClassDiagram(CommandLineParam param)
+        {
+            FileParam fileParam = FileParser.Parse(param);
+            InputDiagram = _parser.ParseDiagram(fileParam.DiagramSource);
             OutputDiagram = _builder.MakeDiagram(InputDiagram);
         }
     }
