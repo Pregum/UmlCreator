@@ -19,7 +19,7 @@ namespace UmlCreator.Core.Facade
         /// <summary>
         /// パースされたクラス図
         /// </summary>
-        public IRootNode InputDiagram { get; private set; }
+        internal DiagramParam InputDiagram { get; private set; }
         /// <summary>
         /// 生成されたクラス図
         /// </summary>
@@ -42,7 +42,7 @@ namespace UmlCreator.Core.Facade
         /// <param name="diagramText"> 入力されたテキスト </param>
         public void GenerateClassDiagram(string diagramText)
         {
-            InputDiagram = _parser.ParseDiagram(diagramText);
+            InputDiagram = _parser.ParseDiagrams(diagramText);
             OutputDiagram = _builder.MakeDiagram(InputDiagram);
         }
 
@@ -55,7 +55,7 @@ namespace UmlCreator.Core.Facade
             FileParam fileParam = FileParser.Parse(param);
             var fileInfo = new FileInfo(fileParam.Param.OutputPath);
 
-            InputDiagram = _parser.ParseDiagram(fileParam.DiagramSource);
+            InputDiagram = _parser.ParseDiagrams(fileParam.DiagramSource);
             OutputDiagram = _builder.MakeDiagram(InputDiagram);
             _serializer.Serialize(OutputDiagram, fileInfo);
 

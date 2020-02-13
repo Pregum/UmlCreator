@@ -1,7 +1,20 @@
+2020/02/13
+やること
+* [ ] ImageBuilderの実装
+  + MSAGLを使ったレイアウトを作成するようにする
+    - ノードの作成
+    - UserDataにIRootDiagramを追加
+    - デリゲートで自分でノードの描画を行うようにする
+* [ ] ImageSerializerの実装
+* [x] パーサーで複数のIRootDiagramが読み込めるようにする
+  + 複数のクラスを描画できるようにするため
+
 2020/02/10
 やること
 * 自動配置処理の追加
+  + [MSAGL](https://github.com/microsoft/automatic-graph-layout)が自動配置の処理はよしなになってくれる
 * 画像出力処理のテスト
+  + 要調査
 * 画像出力処理の追加
   + png, jpeg, svg等の画像出力
   + input: fileパス, output: 生成されたクラス図が描画された画像ファイル

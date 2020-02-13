@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows.Media.Imaging;
 using UmlCreator.Core.Builder;
@@ -23,7 +24,7 @@ namespace UmlCreator.Core.Facade
             {
                 return new ClassDiagramGenerator<T>((IBuilder<T>)new AsciiBuilder(), (ISerializer<T>)new AsciiSerializer());
             }
-            else if (typeof(T) == typeof(BitmapImage))
+            else if (typeof(T) == typeof(Bitmap))
             {
                 return new ClassDiagramGenerator<T>((IBuilder<T>)new ImageBuilder(), (ISerializer<T>)new ImageSerializer());
             }

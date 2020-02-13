@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Sprache;
+using System;
 using System.Linq;
 using UmlCreator.Core.Diagram;
 using UmlCreator.Core.Facade;
+using UmlCreator.Core.Param;
+using UmlCreator.Core.Parser;
 using Xunit;
 
 namespace UmlCreator.Core.Test
@@ -44,23 +47,23 @@ _test7:float
             _classDiagramGenerator.GenerateClassDiagram(testData);
 
             // Assert
-            Assert.Equal("Empty", _classDiagramGenerator.InputDiagram.Name);
+            Assert.Equal("Empty", _classDiagramGenerator.InputDiagram.RootNodes.First().Name);
         }
 
         [Fact(DisplayName = "クラス名取得テスト")]
         public void ClassNameTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case1);
-            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.Name);
+            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.RootNodes.First().Name);
             _classDiagramGenerator.GenerateClassDiagram(case2);
-            Assert.Equal("Fuga", _classDiagramGenerator.InputDiagram.Name);
+            Assert.Equal("Fuga", _classDiagramGenerator.InputDiagram.RootNodes.First().Name);
         }
 
         [Fact(DisplayName = "アクセス修飾子取得テスト")]
         public void FieldAccessibilityTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case2);
-            Assert.Equal(AccessLevel.Public, _classDiagramGenerator.InputDiagram.DataNodes.First().Accessibility);
+            Assert.Equal(AccessLevel.Public, _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First().Accessibility);
         }
 
         // 書く予定のテストケース
@@ -69,8 +72,8 @@ _test7:float
         public void TokenSeparatedTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case4);
-            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.Name);
-            var diagram = _classDiagramGenerator.InputDiagram.DataNodes.First();
+            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.RootNodes.First().Name);
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First();
             Assert.Equal(AccessLevel.Protected, diagram.Accessibility);
             Assert.Equal("test4", diagram.Name);
             Assert.Equal("void", diagram.Type);
@@ -81,7 +84,7 @@ _test7:float
         public void ChunckTokenTest1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case5);
-            var diagram = _classDiagramGenerator.InputDiagram.DataNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First();
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
             Assert.Equal("test5", diagram.Name);
             Assert.Equal("float", diagram.Type);
@@ -91,8 +94,8 @@ _test7:float
         public void ChunckTokenTest2()
         {
             _classDiagramGenerator.GenerateClassDiagram(case8);
-            var diagram = _classDiagramGenerator.InputDiagram.DataNodes.First();
-            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.Name);
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First();
+            Assert.Equal("Hoge", _classDiagramGenerator.InputDiagram.RootNodes.First().Name);
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
             Assert.Equal("_test8", diagram.Name);
             Assert.Equal("float", diagram.Type);
@@ -104,7 +107,7 @@ _test7:float
         public void FieldNameStartWith_Test1()
         {
             _classDiagramGenerator.GenerateClassDiagram(case6);
-            var diagram = _classDiagramGenerator.InputDiagram.DataNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First();
             Assert.Equal(AccessLevel.Private, diagram.Accessibility);
             Assert.Equal("_test6", diagram.Name);
             Assert.Equal("float", diagram.Type);
@@ -115,7 +118,7 @@ _test7:float
         public void PrivateAccessTest()
         {
             _classDiagramGenerator.GenerateClassDiagram(case7);
-            var diagram = _classDiagramGenerator.InputDiagram.DataNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().DataNodes.First();
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
         }
 
@@ -129,7 +132,7 @@ _test7:float
             _classDiagramGenerator.GenerateClassDiagram(testData);
 
             // Assert
-            Assert.False(_classDiagramGenerator.InputDiagram.HasBehaviorNodes);
+            Assert.False(_classDiagramGenerator.InputDiagram.RootNodes.First().HasBehaviorNodes);
         }
 
         [Theory(DisplayName = "メソッドのアクセス修飾子省略テスト")]
@@ -140,7 +143,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
@@ -154,7 +157,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal(AccessLevel.Private, diagram.Accessibility);
@@ -169,7 +172,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal(AccessLevel.Package, diagram.Accessibility);
@@ -184,7 +187,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal(AccessLevel.Protected, diagram.Accessibility);
@@ -198,7 +201,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal(AccessLevel.Public, diagram.Accessibility);
@@ -212,7 +215,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal("Create", diagram.Name);
@@ -227,7 +230,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var diagram = _classDiagramGenerator.InputDiagram.BehaviorNodes.First();
+            var diagram = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes.First();
 
             // Assert
             Assert.Equal("void", diagram.Type);
@@ -241,7 +244,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal(2, behaviorNodes.Count);
@@ -256,7 +259,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal(AccessLevel.Protected, behaviorNodes[0].Accessibility);
@@ -271,7 +274,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal("Create", behaviorNodes[0].Name);
@@ -289,7 +292,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(testData);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal("int", behaviorNodes[0].Type);
@@ -316,7 +319,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(value);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal("para", behaviorNodes[0].Arguments[0].Name);
@@ -327,7 +330,6 @@ _test7:float
             Assert.Equal("+ Build(para : string) : void", behaviorNodes[0].FullName);
         }
 
-
         [Theory(DisplayName = "引数テスト2個")]
         [InlineData("class Hoge{-First(elem: object): int\n +Build(para:string, time : DateTime): void}")]
         public void ArgumentParserTestInBehaviorNode2(string value)
@@ -336,7 +338,7 @@ _test7:float
 
             // Act
             _classDiagramGenerator.GenerateClassDiagram(value);
-            var behaviorNodes = _classDiagramGenerator.InputDiagram.BehaviorNodes;
+            var behaviorNodes = _classDiagramGenerator.InputDiagram.RootNodes.First().BehaviorNodes;
 
             // Assert
             Assert.Equal("First", behaviorNodes[0].Name);
@@ -353,6 +355,88 @@ _test7:float
             Assert.Equal("string", behaviorNodes[1].Arguments[0].Type);
             Assert.Equal("time", behaviorNodes[1].Arguments[1].Name);
             Assert.Equal("DateTime", behaviorNodes[1].Arguments[1].Type);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト1")]
+        [InlineData(@"A --> B")]
+        public void EdgeParseTest1(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            var edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("A", edge.SourceNodeName);
+            Assert.Equal("B", edge.TargetNodeName);
+            Assert.Equal(ArrowType.Dependency, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト2")]
+        [InlineData(@"A <|.. B")]
+        public void EdgeParseTest2(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            var edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("B", edge.SourceNodeName);
+            Assert.Equal("A", edge.TargetNodeName);
+            Assert.Equal(ArrowType.Extend, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト2")]
+        [InlineData(@"A <|..> B")]
+        public void EdgeParseTest3(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => parser.ParseEdge(input));
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト3")]
+        [InlineData(@"A .. B")]
+        public void EdgeParseTest4(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            EdgeNode edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("A", edge.SourceNodeName);
+            Assert.Equal("B", edge.TargetNodeName);
+            Assert.Equal(ArrowType.None, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="DiagramParamのパーステスト1")]
+        [InlineData("class ABC { + Name: string\n - Age: int\n + Say(msg: string): void} \n class DEF { + fuga: int} \n ABC --> DEF")]
+        public void DiagramParamParseTest1(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            DiagramParam param = parser.ParseDiagrams(input);
+
+            // Assert
+            Assert.Equal(2, param.RootNodes.Count);
+            Assert.Equal(1, param.Edges.Count);
+            Assert.Equal("ABC", param.RootNodes[0].Name);
+            Assert.Equal("Say", param.RootNodes[0].BehaviorNodes[0].Name);
+            Assert.Equal("DEF", param.Edges[0].TargetNodeName);
         }
     }
 }
