@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UmlCreator.Core.Diagram
 {
-    internal class ClassNode : IRootNode
+    internal class ClassNode : IRootNode, IExpression
     {
         private List<INode> _dataNodes;
         public IReadOnlyList<INode> DataNodes => _dataNodes.AsReadOnly();
