@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Sprache;
+using System;
 using System.Linq;
 using UmlCreator.Core.Diagram;
 using UmlCreator.Core.Facade;
+using UmlCreator.Core.Param;
+using UmlCreator.Core.Parser;
 using Xunit;
 
 namespace UmlCreator.Core.Test
@@ -327,7 +330,6 @@ _test7:float
             Assert.Equal("+ Build(para : string) : void", behaviorNodes[0].FullName);
         }
 
-
         [Theory(DisplayName = "引数テスト2個")]
         [InlineData("class Hoge{-First(elem: object): int\n +Build(para:string, time : DateTime): void}")]
         public void ArgumentParserTestInBehaviorNode2(string value)
@@ -353,6 +355,88 @@ _test7:float
             Assert.Equal("string", behaviorNodes[1].Arguments[0].Type);
             Assert.Equal("time", behaviorNodes[1].Arguments[1].Name);
             Assert.Equal("DateTime", behaviorNodes[1].Arguments[1].Type);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト1")]
+        [InlineData(@"A --> B")]
+        public void EdgeParseTest1(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            var edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("A", edge.SourceNodeName);
+            Assert.Equal("B", edge.TargetNodeName);
+            Assert.Equal(ArrowType.Dependency, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト2")]
+        [InlineData(@"A <|.. B")]
+        public void EdgeParseTest2(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            var edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("B", edge.SourceNodeName);
+            Assert.Equal("A", edge.TargetNodeName);
+            Assert.Equal(ArrowType.Extend, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト2")]
+        [InlineData(@"A <|..> B")]
+        public void EdgeParseTest3(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => parser.ParseEdge(input));
+        }
+
+        [Theory(DisplayName ="Edgeのノード名とArrowTypeテスト3")]
+        [InlineData(@"A .. B")]
+        public void EdgeParseTest4(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            EdgeNode edge = parser.ParseEdge(input);
+
+            // Assert
+            Assert.Equal("A", edge.SourceNodeName);
+            Assert.Equal("B", edge.TargetNodeName);
+            Assert.Equal(ArrowType.None, edge.ForwardArrowType);
+            Assert.Equal(ArrowType.None, edge.BackArrowType);
+        }
+
+        [Theory(DisplayName ="DiagramParamのパーステスト1")]
+        [InlineData("class ABC { + Name: string\n - Age: int\n + Say(msg: string): void} \n class DEF { + fuga: int} \n ABC --> DEF")]
+        public void DiagramParamParseTest1(string input)
+        {
+            // Arrange
+            var parser = new InputParser();
+
+            // Act
+            DiagramParam param = parser.ParseDiagrams(input);
+
+            // Assert
+            Assert.Equal(2, param.RootNodes.Count);
+            Assert.Equal(1, param.Edges.Count);
+            Assert.Equal("ABC", param.RootNodes[0].Name);
+            Assert.Equal("Say", param.RootNodes[0].BehaviorNodes[0].Name);
+            Assert.Equal("DEF", param.Edges[0].TargetNodeName);
         }
     }
 }
