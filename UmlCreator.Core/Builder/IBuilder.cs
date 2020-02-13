@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UmlCreator.Core.Diagram;
+using UmlCreator.Core.Param;
 
 namespace UmlCreator.Core.Builder
 {
@@ -16,6 +17,7 @@ namespace UmlCreator.Core.Builder
         /// </summary>
         /// <param name="rootNode">図を作成する為に必要な情報</param>
         /// <returns>図</returns>
-        T MakeDiagram(IRootNode rootNode);
+        T MakeDiagram(DiagramParam rootNode);
+
     }
 }

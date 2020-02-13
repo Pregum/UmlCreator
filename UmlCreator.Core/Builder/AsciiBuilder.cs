@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 using UmlCreator.Core.Diagram;
+using UmlCreator.Core.Param;
 
 namespace UmlCreator.Core.Builder
 {
@@ -18,9 +19,14 @@ namespace UmlCreator.Core.Builder
         /// </summary>
         /// <param name="rootNode"> 根本のノードです。 </param>
         /// <returns></returns>
-        public string MakeDiagram(IRootNode rootNode)
+        public string MakeDiagram(DiagramParam diagram)
         {
-            if (rootNode == null) throw new ArgumentNullException($"{nameof(rootNode)} is null.");
+            // FIXME: 複数のクラス図をASCIIで表示できるように修正する
+            var rootNode = diagram.RootNodes.First();
+            if (rootNode is null)
+            {
+                throw new ArgumentNullException(nameof(rootNode));
+            }
 
             var sb = new StringBuilder();
 
