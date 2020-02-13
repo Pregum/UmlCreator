@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using UmlCreator.Core.Diagram;
+using UmlCreator.Core.Param;
 
 namespace UmlCreator.Core.Parser
 {
@@ -13,11 +14,11 @@ namespace UmlCreator.Core.Parser
         /// クラスを表すパーサです。
         /// </summary>
         /// <example>class Hoge { }</example>
-        private readonly static Parser<IRootNode> classDiagram =
+        private readonly static Parser<IExpression> ClassDiagram =
             from @class in Parse.String("class").Token().Text()
             from className in Parse.LetterOrDigit.AtLeastOnce().Token().Text()
             from openParenthesense in Parse.Char('{').Token()
-            from nodes in dataNode.Or(behaviorNode).Many().Token()
+            from nodes in DataNode.Or(BehaviorNode).Many().Token()
             from closeParenthesense in Parse.Char('}').Token()
             select new ClassNode(className, className, AccessLevel.Package, nodes);
 
@@ -25,7 +26,7 @@ namespace UmlCreator.Core.Parser
         /// フィールドメンバを表すパーサです。
         /// </summary>
         /// <example> "+ name:string" </example>
-        private readonly static Parser<INode> dataNode =
+        private readonly static Parser<INode> DataNode =
         from modifier in (Parse.Char('-').Return(AccessLevel.Private)
             .Or(Parse.Char('~').Return(AccessLevel.Package))
             .Or(Parse.Char('#').Return(AccessLevel.Protected))
@@ -50,7 +51,7 @@ namespace UmlCreator.Core.Parser
         /// メソッドを表すパーサです。
         /// </summary>
         /// <example> "# GetName(hoge:int, test:string):string"</example>
-        private readonly static Parser<INode> behaviorNode =
+        private readonly static Parser<INode> BehaviorNode =
         from modifier in (Parse.Char('-').Return(AccessLevel.Private)
             .Or(Parse.Char('~').Return(AccessLevel.Package))
             .Or(Parse.Char('#').Return(AccessLevel.Protected))
@@ -64,6 +65,37 @@ namespace UmlCreator.Core.Parser
         from colon in Parse.Char(':').Token()
         from type in Parse.LetterOrDigit.Many().Token().Text()
         select new MethodNode(name, type, modifier, arguments);
+
+        /// <summary>
+        /// エッジを表すパーサです。
+        /// </summary>
+        /// <example> "XXX ---> YYY" </example>
+        private readonly static Parser<IExpression> EdgeParser =
+            from leftNode in Parse.LetterOrDigit.AtLeastOnce().Token().Text()
+            from leftArrow in Parse.String("<|").Return(ArrowType.Extend).Or(Parse.String("<").Return(ArrowType.Dependency)).Or(Parse.Return(ArrowType.None))
+            from line in Parse.Char('-').Or(Parse.Char('.')).AtLeastOnce().Token().Text()
+            from rightArrow in Parse.String("|>").Return(ArrowType.Extend).Or(Parse.String(">").Return(ArrowType.Dependency)).Or(Parse.Return(ArrowType.None))
+            from rightNode in Parse.LetterOrDigit.AtLeastOnce().Token().Text()
+            select new EdgeNode(leftNode, rightNode, leftArrow, rightArrow);
+
+        /// <summary>
+        /// エッジ群を表すパーサです。
+        /// </summary>
+        private readonly static Parser<IEnumerable<IExpression>> EdgesParser =
+            EdgeParser.AtLeastOnce().Token();
+
+        /// <summary>
+        /// クラス群を表すパーサです。
+        /// </summary>
+        private readonly static Parser<IEnumerable<IExpression>> ClassesDiagramParser =
+            ClassDiagram.Token().AtLeastOnce();
+
+        /// <summary>
+        /// クラス群とエッジ群をまとめたパーサです。
+        /// </summary>
+        private readonly static Parser<DiagramParam> DiagramParser =
+            from expression in ClassDiagram.Or(EdgeParser).AtLeastOnce().Token()
+            select new DiagramParam(expression);
 
         /// <summary>
         /// ctor
@@ -82,12 +114,43 @@ namespace UmlCreator.Core.Parser
         {
             try
             {
-                return classDiagram.Parse(input);
+                return ClassDiagram.Parse(input) as IRootNode;
             }
-            catch (ParseException e)
+            catch (ParseException ex)
             {
-                throw new ArgumentException("入力が正しくありません。", e);
+                throw new ArgumentException("入力が正しくありません。", ex);
             }
         }
+
+        #region テスト用メソッド
+
+        /// <summary>
+        /// クラスノードの集合体 + エッジノードの集合体を解析するメソッド
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        internal DiagramParam ParseDiagrams(string input)
+        {
+            try
+            {
+                return DiagramParser.Parse(input);
+            }
+            catch (ParseException ex)
+            {
+                throw new ArgumentException("入力が正しくありません。", ex);
+            }
+        }
+
+        /// <summary>
+        /// エッジノードを解析するメソッド
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        internal EdgeNode ParseEdge(string input)
+        {
+            return EdgeParser.Parse(input) as EdgeNode;
+        }
+
+        #endregion
     }
 }

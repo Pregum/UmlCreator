@@ -37,17 +37,18 @@ namespace UmlCreator.Core.Diagram
         /// <param name="rightArrowType"> 右方向の矢印の種類 </param>
         public EdgeNode(string leftNodeName, string rightNodeName, ArrowType leftArrowType, ArrowType rightArrowType)
         {
-            BackArrowType = leftArrowType;
-            ForwardArrowType = rightArrowType;
-
             // 矢印は多くても片方までしか表示させない
             (SourceNodeName, TargetNodeName) = (leftArrowType, rightArrowType) switch
             {
                 (ArrowType.None, ArrowType.None) => (leftNodeName, rightNodeName),
-                (ArrowType.None, ArrowType forwardArrow) => (leftNodeName, rightNodeName),
+                (ArrowType.None, ArrowType forwardArrow) =>(leftNodeName, rightNodeName) ,
                 (ArrowType backArrow, ArrowType.None) => (rightNodeName, leftNodeName),
+                // どちらもNoneでなければ例外を発生させる
                 _ => throw new InvalidOperationException(),
             };
+
+            BackArrowType = SourceNodeName == leftNodeName ? leftArrowType : rightArrowType;
+            ForwardArrowType = SourceNodeName == leftNodeName ? rightArrowType : leftArrowType;
         }
     }
 }
