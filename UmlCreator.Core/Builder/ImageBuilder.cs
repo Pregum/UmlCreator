@@ -32,31 +32,14 @@ namespace UmlCreator.Core.Builder
                 throw new ArgumentNullException(nameof(diagram));
             }
 
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            //Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
 
-            //Microsoft.Msagl.Core.Layout.GeometryGraph geoGraph = new Microsoft.Msagl.Core.Layout.GeometryGraph();
+            //Microsoft.Msagl.Drawing.Graph graph = CreateAndLayoutDrawingGraph(diagram);
 
             geoGraph = CreateAndLayoutGraph(diagram);
-
             Bitmap bmp = new Bitmap(500, 500, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
             Graphics g = Graphics.FromImage(bmp);
             DrawGraph(g, new RectangleF(0, 0, bmp.Width, bmp.Height));
-
-            // Microsoft.Msagl.Drawing.NodeとMicrosoft.Msagl.Drawing.Edgeの追加処理
-            //for (int i = 0; i < diagram.RootNodes.Count; i++)
-            //{
-            //    IRootNode root = diagram.RootNodes[i];
-            //    AddRootNode(graph, root);
-            //}
-
-            //for (int i = 0; i < diagram.Edges.Count; i++)
-            //{
-            //    EdgeNode edge = diagram.Edges[i];
-            //    AddEdgeNode(graph, edge);
-            //}
-
-            //Microsoft.Msagl.Miscellaneous.LayoutHelpers.CalculateLayout(graph.GeometryGraph, graph.LayoutAlgorithmSettings, new Microsoft.Msagl.Core.CancelToken());
 
             // todo: ここで、レイアウトの自動調整と画像の保存ができる方法を探す。
             var path = System.IO.Path.Combine(Environment.CurrentDirectory, "out.png");
@@ -64,6 +47,32 @@ namespace UmlCreator.Core.Builder
             bmp.Save(path);
 
             return bmp;
+        }
+
+        private Graph CreateAndLayoutDrawingGraph(DiagramParam diagram)
+        {
+            double w = 30;
+            double h = 20;
+
+            Graph graph = new Graph();
+            GeoGraph gGraph = new GeoGraph();
+            for (int i = 0; i < diagram.RootNodes.Count; i++)
+            {
+                GeoNode geoNode = new GeoNode(CurveFactory.CreateRectangle(w, h, new Microsoft.Msagl.Core.Geometry.Point()), diagram.RootNodes[i].Name);
+                gGraph.Nodes.Add(geoNode);
+                AddRootNode(graph, diagram.RootNodes[i], geoNode);
+            }
+
+            for (int i = 0; i < diagram.Edges.Count; i++)
+            {
+                GeoEdge geoEdge = new GeoEdge(gGraph.FindNodeByUserData(diagram.Edges[i].SourceNodeName), gGraph.FindNodeByUserData(diagram.Edges[i].TargetNodeName));
+                gGraph.Edges.Add(geoEdge);
+                AddEdgeNode(graph, diagram.Edges[i], geoEdge);
+            }
+
+            var settings = new Microsoft.Msagl.Layout.Incremental.FastIncrementalLayoutSettings();
+            graph.LayoutAlgorithmSettings = settings;
+            return graph;
         }
 
         #region ref MSAGL.GraphLayout.UsingMdsLayoutSample : https://github.com/microsoft/automatic-graph-layout/tree/master/GraphLayout/Samples/UsingMDSLayoutSample
@@ -219,12 +228,14 @@ namespace UmlCreator.Core.Builder
 
         #endregion
 
-        private void AddEdgeNode(Graph graph, EdgeNode edge)
+
+        private void AddEdgeNode(Graph graph, EdgeNode edge, GeoEdge geoEdge)
         {
             Microsoft.Msagl.Drawing.Edge newEdge = graph.AddEdge(edge.SourceNodeName, edge.TargetNodeName);
+            newEdge.GeometryEdge = geoEdge;
         }
 
-        private static void AddRootNode(Graph graph, IRootNode root)
+        private Node AddRootNode(Graph graph, IRootNode root, GeoNode geoNode)
         {
             Microsoft.Msagl.Drawing.Node node = graph.AddNode(root.Name);
             node.UserData = root;
@@ -233,7 +244,10 @@ namespace UmlCreator.Core.Builder
             node.Attr.YRadius = 0.1;
             node.DrawNodeDelegate = DrawNodeDelegate;
             node.NodeBoundaryDelegate = GetNodeBoundaryDelegate;
+            node.GeometryNode = geoNode;
+            return node;
         }
+
 
         private static ICurve GetNodeBoundaryDelegate(Microsoft.Msagl.Drawing.Node node)
         {

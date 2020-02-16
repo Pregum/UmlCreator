@@ -1,0 +1,25 @@
+@startuml
+
+title クラス図オブジェクトをBitmapに変更させるアクティビティ
+
+start
+
+:クラス図オブジェクトを取得;
+:クラス名でノードを作成;
+:ノードのUserDataプロパティにクラス図オブジェクトを代入;
+
+if (属性ノードが存在するか) then (true)
+  repeat
+    :次の属性ノードを選択する;
+  repeat while (選択中のノードが最後のノードか?)
+endif
+
+if (操作ノードが存在するか) then (true)
+  repeat
+    :;
+  repeat while (選択中のノードが最後のノードか?)
+endif
+
+stop
+
+@enduml
