@@ -47,7 +47,7 @@ namespace UmlCreator.Core.Diagram
             //    _ => throw new InvalidOperationException(),
             //};
 
-            if (leftArrowType == ArrowType.None && rightArrowType == ArrowType.None)
+            if (leftArrowType == ArrowType.None)
             {
                 SourceNodeName = leftNodeName;
                 TargetNodeName = rightNodeName;
