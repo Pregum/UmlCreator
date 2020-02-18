@@ -49,12 +49,12 @@ namespace UmlCreator.Core.Builder
             return bmp;
         }
 
-        private Graph CreateAndLayoutDrawingGraph(DiagramParam diagram)
+        private Microsoft.Msagl.Drawing.Graph CreateAndLayoutDrawingGraph(DiagramParam diagram)
         {
             double w = 30;
             double h = 20;
 
-            Graph graph = new Graph();
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph();
             GeoGraph gGraph = new GeoGraph();
             for (int i = 0; i < diagram.RootNodes.Count; i++)
             {
@@ -229,13 +229,13 @@ namespace UmlCreator.Core.Builder
         #endregion
 
 
-        private void AddEdgeNode(Graph graph, EdgeNode edge, GeoEdge geoEdge)
+        private void AddEdgeNode(Microsoft.Msagl.Drawing.Graph graph, EdgeNode edge, GeoEdge geoEdge)
         {
             Microsoft.Msagl.Drawing.Edge newEdge = graph.AddEdge(edge.SourceNodeName, edge.TargetNodeName);
             newEdge.GeometryEdge = geoEdge;
         }
 
-        private Node AddRootNode(Graph graph, IRootNode root, GeoNode geoNode)
+        private Node AddRootNode(Microsoft.Msagl.Drawing.Graph graph, IRootNode root, GeoNode geoNode)
         {
             Microsoft.Msagl.Drawing.Node node = graph.AddNode(root.Name);
             node.UserData = root;
