@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmlCreator.Core", "UmlCreat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmlCreator.Core.Test", "UmlCreator.Core.Test\UmlCreator.Core.Test.csproj", "{A5E766F4-CCF1-4830-AB6A-741FD89C3BC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmlCreator.Cui", "UmlCreator.Cui\UmlCreator.Cui.csproj", "{47E4C03E-5BE4-43BA-B1B7-C074F7CCB359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmlCreator.Cui", "UmlCreator.Cui\UmlCreator.Cui.csproj", "{47E4C03E-5BE4-43BA-B1B7-C074F7CCB359}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{1F7DF03A-3FAF-45B8-9D96-95AC56AD985D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmlCreatorSampleFramework", "UmlCreatorSampleFramework\UmlCreatorSampleFramework.csproj", "{FD1101DE-54B0-43A7-87A3-CBA313841F0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{47E4C03E-5BE4-43BA-B1B7-C074F7CCB359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E4C03E-5BE4-43BA-B1B7-C074F7CCB359}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E4C03E-5BE4-43BA-B1B7-C074F7CCB359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1101DE-54B0-43A7-87A3-CBA313841F0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1101DE-54B0-43A7-87A3-CBA313841F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1101DE-54B0-43A7-87A3-CBA313841F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1101DE-54B0-43A7-87A3-CBA313841F0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD1101DE-54B0-43A7-87A3-CBA313841F0A} = {1F7DF03A-3FAF-45B8-9D96-95AC56AD985D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {724B9C41-5E95-4D95-AA2E-38EE7B9180AF}
