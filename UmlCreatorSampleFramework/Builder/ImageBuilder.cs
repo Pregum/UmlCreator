@@ -1,6 +1,7 @@
 ﻿using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.GraphViewerGdi;
+using Microsoft.Msagl.Layout.Layered;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace UmlCreator.Core.Builder
             }
 
             var graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            // 縦のノード間の幅
+            ((SugiyamaLayoutSettings)graph.LayoutAlgorithmSettings).LayerSeparation = 150;
+            // 横のノード間の幅
+            ((SugiyamaLayoutSettings)graph.LayoutAlgorithmSettings).NodeSeparation = 150;
+            graph.LayoutAlgorithmSettings.EdgeRoutingSettings.EdgeRoutingMode = Microsoft.Msagl.Core.Routing.EdgeRoutingMode.Rectilinear;
 
             var bmp = new Bitmap(_imageSize, _imageSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
@@ -46,9 +52,7 @@ namespace UmlCreator.Core.Builder
             }
 
             GraphRenderer graphRenderer = new GraphRenderer(graph);
-
             graphRenderer.CalculateLayout();
-
             graphRenderer.Render(bmp);
 
             string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, "out_diagram.png");
@@ -60,7 +64,9 @@ namespace UmlCreator.Core.Builder
 
         private void AddEdgeNode(Graph graph, EdgeNode edge)
         {
-            graph.AddEdge(edge.SourceNodeName, edge.TargetNodeName);
+            Microsoft.Msagl.Drawing.Edge geoEdge = graph.AddEdge(edge.SourceNodeName, edge.TargetNodeName);
+            geoEdge.Attr.LineWidth = 5;
+            geoEdge.Attr.ArrowheadLength = 20;
         }
 
         private void AddRootNode(Graph graph, IRootNode rootNode)
@@ -83,7 +89,6 @@ namespace UmlCreator.Core.Builder
             double width = margin + maxLength * 15;
             var g = Graphics.FromImage(new Bitmap(1, 1));
             var drawingSize = g.MeasureString(root.Name, _measureFont);
-            //double height = (1 + root.DataNodes.Count + root.BehaviorNodes.Count) * 15;
             double height = (1 + root.DataNodes.Count + root.BehaviorNodes.Count) * drawingSize.Height;
 
             return CurveFactory.CreateRectangle(width, height, new Microsoft.Msagl.Core.Geometry.Point());
